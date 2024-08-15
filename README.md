@@ -95,7 +95,7 @@ sorting-assistant-gui
 sorting-assistant-gui -d /path/to/image/dir -t 1
 ```
 
-![sorting assistant flet](./sorting-assiatant-flet.png)
+![sorting assistant flet](https://raw.githubusercontent.com/adeliae1316/sorting-assistant/develop/sorting-assiatant-flet.png)
 
 - Set the `Directory Path` and `Grouping threshould` and press the `Execute` button to execute.
 - When specifying the `Directory Path`, you can press `Select` to display the file selection dialog.
