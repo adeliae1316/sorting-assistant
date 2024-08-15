@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sorting-assistant"
+dynamic = ["version"]
+description = "Tool for sorting photos based on Exif."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = ["sorting", "camera", "photo", "exif", "exposure"]
+authors = [
+  { name = "adeliae1316", email = "knsak.ug487@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+dependencies = ["exif", "flet"]
+
+[project.urls]
+Documentation = "https://github.com/adeliae1316/sorting-assistant#readme"
+Issues = "https://github.com/adeliae1316/sorting-assistant/issues"
+Source = "https://github.com/adeliae1316/sorting-assistant"
+
+[project.scripts]
+sorting-assistant-cli = "sorting_assistant:cli"
+
+[project.gui-scripts]
+sorting-assistant-gui = "sorting_assistant:gui"
+
+[tool.hatch.version]
+path = "src/sorting_assistant/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/sorting_assistant tests}"
+
+[tool.coverage.run]
+source_pkgs = ["sorting_assistant", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/sorting_assistant/__about__.py",
+]
+
+[tool.coverage.paths]
+sorting_assistant = ["src/sorting_assistant", "*/sorting-assistant/src/sorting_assistant"]
+tests = ["tests", "*/sorting-assistant/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
