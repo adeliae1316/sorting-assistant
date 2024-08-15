@@ -1,0 +1,60 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Python Executable Binary Creation
+
+on: workflow_dispatch
+
+permissions:
+  contents: read
+
+jobs:
+  build-ubuntu:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.12.5
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.12.5"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install exif flet pyinstaller 
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Create binary
+      run: |
+        pyinstaller ./src/sorting_assistant/sorting_assistant.py --onefile
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: |
+          dist
+        
+  build-windows:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.12.5
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.12.5"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install exif flet pyinstaller 
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Create binary
+      run: |
+        pyinstaller.exe ./src/sorting_assistant/sorting_assistant.py --onefile
+    - name: Archive artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: |
+          dist
