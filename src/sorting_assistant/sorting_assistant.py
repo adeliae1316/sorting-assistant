@@ -135,8 +135,14 @@ def cli(args=initialize_parser()):
 
 def gui(args=initialize_parser()):
     if __name__ == "__main__":
-        from sorting_assistant_flet import launch
+        if os.path.basename(sys.argv[0]) == "sorting_assistant.py":
+            # Execute as script (python ./sorting_assistant.py)
+            from sorting_assistant_flet import launch
+        else:
+            # Execute as binary (./dist/sorting-assistant)
+            from sorting_assistant.sorting_assistant_flet import launch
     else:
+        # Execute as module via __main__.py (python -m sorting_assistant)
         from .sorting_assistant_flet import launch
 
     launch(
