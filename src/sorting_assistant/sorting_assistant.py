@@ -34,7 +34,11 @@ def initialize_parser(prog: str = os.path.basename(sys.argv[0])):
         help="[optional, default: launch with gui] execute with CLI.",
         action="store_true",
     )
-    return parser.parse_args()
+
+    # Workaround to suppress flet pack errors on Windows
+    return parser.parse_args(
+        args=([] if os.name == "nt" and prog == "_child.py" else None)
+    )
 
 
 def get_image_info_list(directory_path: str):
