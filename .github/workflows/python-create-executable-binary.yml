@@ -56,3 +56,27 @@ jobs:
           name: dist-windows
           path: |
             dist
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.12.5
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.5"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Create binary
+        run: |
+          pyinstaller ./src/sorting_assistant/sorting_assistant.py --onefile --name sorting-assistant --hide-console hide-early
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-macos
+          path: |
+            dist
