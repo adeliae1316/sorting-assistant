@@ -49,7 +49,7 @@ jobs:
           If (Test-Path -path requirements.txt) { pip install -r requirements.txt; }
       - name: Create binary
         run: |
-          pyinstaller ./src/sorting_assistant/sorting_assistant.py --onefile --name sorting-assistant
+          pyinstaller ./src/sorting_assistant/sorting_assistant.py --onefile --name sorting-assistant --hide-console hide-early
       - name: Archive artifacts
         uses: actions/upload-artifact@v4
         with:
